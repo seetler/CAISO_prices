@@ -1,0 +1,2 @@
+55 * * * * python3 base.py
+57 * * * * bash move.sh
