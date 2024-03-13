@@ -1,46 +1,31 @@
 import sys
-sys.path.append('C:\\Users\\JSNZE\\OneDrive\\Desktop\\packages')
+from variables import *
+
+sys.path.append(syspathlocal)
 
 import requests
 import os
 from datetime import datetime, timedelta
+from zipfile import ZipFile
 import zipfile
-from apvariable import *
+import pandas as pd
 
 
 oasis_api_string= f"http://oasis.caiso.com/oasisapi/SingleZip?resultformat=6&queryname={oasis_api_string_queryname}&version=1&startdatetime={oasis_api_string_startdatetime}&enddatetime={oasis_api_string_enddatetime}&market_run_id={oasis_api_string_marketid}&node={oasis_api_string_node}"
 
 print(oasis_api_string)
 
+def download_file(local_folder):
 
-# Print the formatted time
-print(formatted_time)
+  filename = "temp.zip"
 
-def download_file(url, local_folder):
-  """
-  Downloads a file from a URL and saves it to a local folder.
-
-  Args:
-      url (str): The URL of the file to download.
-      local_folder (str): The path to the local folder where the file 
-                          should be saved.
-  """
-
-  # Get the filename from the URL
-  filename = "s.zip"
-
-  # Create the local filepath
   local_filepath = os.path.join(local_folder, filename)
-
-  # Send the GET request
   response = requests.get(oasis_api_string, stream=True)
 
-  # Check for successful response (status code 200)
+
   if response.status_code == 200:
-    # Create the local folder if it doesn't exist
     os.makedirs(local_folder, exist_ok=True)
 
-    # Open the local file in write-binary mode
     with open(local_filepath, "wb") as f:
       for chunk in response.iter_content(chunk_size=1024):
         if chunk:  # filter out keep-alive new chunks
@@ -49,35 +34,56 @@ def download_file(url, local_folder):
   else:
     print(f"Download failed: Status code {response.status_code}")
 
-# Example usage
-url = "https://example.com/file.txt"  # Replace with your actual URL
+
 local_folder = "downloads"  # Replace with your desired folder path
-
-download_file(url, local_folder)
-
+download_file(local_folder)
 
 
-def unzip_file_no_with(filepath, destination_folder):
+
+
+
+# pd.read_csv('downloads/ba.csv')
+
+
+def unzip_and_rename(zip_file_path, new_csv_name):
   """
-  Unzips a downloaded file to a specified destination folder without using 'with'.
-
-  **Caution:** This approach is less recommended than using 'with' due to potential 
-  resource management issues. Use with caution and for learning purposes only.
+  Unzips a zip file, renames the first encountered CSV file inside, 
+  and overwrites existing files with the same name.
 
   Args:
-      filepath (str): The path to the downloaded zip file.
-      destination_folder (str): The path to the folder where the extracted 
-                                 files should be saved.
+      zip_file_path: Path to the zip file.
+      new_csv_name: The desired name for the extracted CSV file (without extension).
   """
-  zip_ref = zipfile.ZipFile(filepath, 'r')
-  try:
-    zip_ref.extractall(destination_folder)
-    print(f"Files extracted successfully to: {destination_folder}")
-  finally:
-    zip_ref.close()  # Ensure proper file closure even in case of exceptions
+  with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
+    for member in zip_ref.namelist():
+      if member.lower().endswith('.csv'):
+        csv_filename = os.path.basename(member)
+        new_filename = f"{new_csv_name}.csv"
+        # Extract to the same directory as the zip file (overwrite if exists)
+        zip_ref.extract(member, os.path.dirname(zip_file_path))
+        try:
+          os.remove('downloads/renamed_data.csv')
+        except Exception:
+          pass
+
+
+
+        # Rename the extracted file
+        os.rename(os.path.join(os.path.dirname(zip_file_path), csv_filename), 
+                  os.path.join(os.path.dirname(zip_file_path), new_filename))
+        break  # Only rename the first encountered CSV
 
 # Example usage
-downloaded_file = "data.zip"  # Replace with your downloaded file name
-destination_folder = "extracted_files"  # Replace with your desired folder
+zip_file_path = "downloads/temp.zip"
+new_csv_name = "renamed_data"
+unzip_and_rename(zip_file_path, new_csv_name)
+print(f"CSV file extracted and renamed to {new_csv_name}.csv (Overwrites existing)")
 
-unzip_file_no_with("downloads/s.zip", destination_folder)
+pdcsvname='bas.csv'
+data2 = pd.read_csv('downloads/renamed_data.csv')
+df3=data2.drop(['INTERVALSTARTTIME_GMT', 'INTERVALENDTIME_GMT'], axis='columns')
+df3['timestamp'] = pd.Timestamp.now()
+df3.to_csv(pdcsvname, index=False, header=True)
+
+print(f"Readied to {pdcsvname}")
+# sudo apt install python3-pandas

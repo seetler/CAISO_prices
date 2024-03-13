@@ -1,0 +1,17 @@
+[
+  {"name": "OPR_DT", "type": "DATE"}, 
+  {"name": "OPR_HR", "type": "INTEGER"},
+  {"name": "OPR_INTERVAL", "type": "INTEGER"},
+  {"name": "NODE_ID_XML", "type": "STRING"},
+  {"name": "NODE_ID", "type": "STRING"},
+  {"name": "NODE", "type": "STRING"},
+  {"name": "MARKET_RUN_ID", "type": "STRING"},
+  {"name": "LMP_TYPE", "type": "STRING"},
+  {"name": "XML_DATA_ITEM", "type": "STRING"},
+  {"name": "PNODE_RESMRID", "type": "STRING"},
+  {"name": "GRP_TYPE", "type": "STRING"},
+  {"name": "POS", "type": "INTEGER"},
+  {"name": "MW", "type": "FLOAT"},
+  {"name": "GROUP", "type": "INTEGER"},
+  {"name": "timestamp", "type": "TIMESTAMP"}
+]
