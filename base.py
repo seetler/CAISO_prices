@@ -79,10 +79,12 @@ new_csv_name = "renamed_data"
 unzip_and_rename(zip_file_path, new_csv_name)
 print(f"CSV file extracted and renamed to {new_csv_name}.csv (Overwrites existing)")
 
+now = datetime.utcnow()
+
 pdcsvname='bas.csv'
 data2 = pd.read_csv('downloads/renamed_data.csv')
 df3=data2.drop(['INTERVALSTARTTIME_GMT', 'INTERVALENDTIME_GMT'], axis='columns')
-df3['timestamp'] = pd.Timestamp.now()
+df3['timestamp'] = now
 df3.to_csv(pdcsvname, index=False, header=False)
 
 print(f"Readied to {pdcsvname}")
