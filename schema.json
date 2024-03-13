@@ -1,7 +1,6 @@
 [
   {"name": "OPR_DT", "type": "DATE"}, 
   {"name": "OPR_HR", "type": "INTEGER"},
-  {"name": "OPR_INTERVAL", "type": "INTEGER"},
   {"name": "NODE_ID_XML", "type": "STRING"},
   {"name": "NODE_ID", "type": "STRING"},
   {"name": "NODE", "type": "STRING"},
@@ -12,6 +11,7 @@
   {"name": "GRP_TYPE", "type": "STRING"},
   {"name": "POS", "type": "INTEGER"},
   {"name": "MW", "type": "FLOAT"},
+  {"name": "OPR_INTERVAL", "type": "INTEGER"},
   {"name": "GROUP", "type": "INTEGER"},
-  {"name": "timestamp", "type": "TIMESTAMP"}
+  {"name": "timestamp_utc", "type": "TIMESTAMP"}
 ]

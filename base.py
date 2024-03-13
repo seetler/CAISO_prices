@@ -83,7 +83,7 @@ pdcsvname='bas.csv'
 data2 = pd.read_csv('downloads/renamed_data.csv')
 df3=data2.drop(['INTERVALSTARTTIME_GMT', 'INTERVALENDTIME_GMT'], axis='columns')
 df3['timestamp'] = pd.Timestamp.now()
-df3.to_csv(pdcsvname, index=False, header=True)
+df3.to_csv(pdcsvname, index=False, header=False)
 
 print(f"Readied to {pdcsvname}")
 # sudo apt install python3-pandas
