@@ -84,8 +84,8 @@ now = datetime.utcnow()
 pdcsvname='t3_bay3.csv'
 data2 = pd.read_csv('downloads/renamed_data.csv')
 df3=data2.drop(['INTERVALSTARTTIME_GMT', 'INTERVALENDTIME_GMT'], axis='columns')
-df3['timestamp'] = now
-df3.to_csv(pdcsvname, index=False)
+df3['timestamp_utc'] = now
+df3.to_csv(pdcsvname, index=False, header=False)
 
 print(f"Readied to {pdcsvname}")
 # sudo apt install python3-pandas

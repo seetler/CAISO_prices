@@ -1,1 +1,1 @@
-bq load --ignore_unknown_values caiso_price.t3 bas.csv schema.json
+bq load --ignore_unknown_values caiso_price.t3_bay3 t3_bay3.csv schema2.json
