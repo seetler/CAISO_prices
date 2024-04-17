@@ -1,8 +1,7 @@
-This frameworks pulls data from the California electric grid. This example pulls the Hour-Ahead prices hourly and compares it against the Day Ahead Price.
+This frameworks pulls data from the California electric grid CAISO using their Open Access Information System (OASIS) on a Google Cloud stack. This example pulls the Hour-Ahead prices hourly and compares it against the Day-Ahead Prices.
 
-1. base.py queries CAISO OASIS using variables.py
-2. base.py then extracts and reformats to insertion into BigQuery
-3. move.sh is a GCP script that moves the extracted CSV from CAISO into the DB
-4. cron.tab.txt is a copy of the crontab on the Compute Engine.
-6. staing_query.sql queries the database for formatting for visualization.
+1. base.py queries CAISO OASIS using variables.py then extracts and reformats for insertion into BigQuery.
+3. move.sh is a GCP script that moves the extracted CSV from CAISO into the DB.
+4. cron.tab.txt is a copy of the crontab text on the Compute Engine.
+6. staging_query.sql is a SQL view that formats the raw data for visualization.
 5. https://lookerstudio.google.com/reporting/3004e21a-2ad6-4992-b9b4-18176e754b7f
