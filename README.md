@@ -4,4 +4,4 @@ This frameworks pulls data from the California electric grid CAISO using their O
 3. move.sh is a GCP script that moves the extracted CSV from CAISO into the DB.
 4. cron.tab.txt is a copy of the crontab text on the Compute Engine.
 6. staging_query.sql is a SQL view that formats the raw data for visualization.
-5. https://lookerstudio.google.com/reporting/3004e21a-2ad6-4992-b9b4-18176e754b7f
+5. https://lookerstudio.google.com/s/vU9CxzzAQbM
